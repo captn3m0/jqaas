@@ -14,29 +14,37 @@ function call_jq($contents, $filter)
 
     $filename = escapeshellarg($filename);
 
-    $cmd .= " $filename";
+    
+    $cmd .= " --raw-output --join-output --compact-output $filename";
 
     exec($cmd, $output, $return);
 
-    if ($return !== 0 )
-    {
-        header("Content-Type: plain/text");
-        // Assuming jq failed because of your error
-        // Might map jq error codes later
-        http_response_code(400 + $return);
-        return 'jq execution failed';
-    }
-    else if(count($output) === 1)
-    {
-        // Just guessing
-        header("Content-Type: application/json");
-        return $output[0];
-    }
-    else
-    {
-        header("Content-Type: application/x-ndjson");
-        return join("\n", $output);
-    }
+    /**
+     * Normally jq exits with 2 if there was any usage problem or system error, 3 if there was a jq program compile error, or 0
+     * if the jq program ran.
+     */
+    switch ($return) {
+        case 2:
+        case 3:
+            http_response_code(400);
+            $error = join("\n", $output);
+            return 'jq eror: '. $error;
+            break;
 
+        case 0:
+        default:
+            if(count($output) === 1 and $return === 0)
+            {
+                // Just guessing
+                header("Content-Type: application/json");
+                return $output[0];
+            }
+            else
+            {
+                header("Content-Type: application/x-ndjson");
+                return join("\n", $output);
+            }
+            break;
+    }
 }
 
