@@ -7,9 +7,12 @@ function call_jq($contents, $filter)
     $cmd = './jq ' . $filter;
 
     $temp = tmpfile();
+
     $filename = stream_get_meta_data($temp)['uri'];
 
     fwrite($temp, $contents);
+
+    $filename = escapeshellarg($filename);
 
     $cmd .= " $filename";
 
