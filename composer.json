@@ -1,0 +1,12 @@
+{
+    "name": "captn3m0/jqaas",
+    "description": "jq as a service",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nemo",
+            "email": "me@captnemo.in"
+        }
+    ],
+    "require": {}
+}
