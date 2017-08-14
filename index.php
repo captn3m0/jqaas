@@ -9,13 +9,13 @@ if(isset($_GET['url']))
     $url = $_GET['url'];
     if (filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED||FILTER_FLAG_HOST_REQUIRED) !== false)
     {
-        try
+        $contents = file_get_contents($url);
+
+        if ($contents === false)
         {
-            $contents = file_get_contents($url);
-        }
-        catch(Exception $e)
-        {
-            $contents = null;
+            http_response_code(400);
+            header("Content-Type: plain/text");
+            die("Fetching URL failed: ".$url);
         }   
     }
 }
@@ -33,12 +33,13 @@ if (empty($contents))
     exit;
 }
 
-if (!isset($_SERVER['HTTP_JQ_FILTER']))
+if (isset($_SERVER['HTTP_JQ_FILTER']))
 {
-    http_response_code(400);
-    die("No FILTER found in request. Send a JQ-Filter header");
+    $filter = $_SERVER['HTTP_JQ_FILTER'];
 }
-
-$filter = $_SERVER['HTTP_JQ_FILTER'];
+else
+{
+    $filter = '.';
+}
 
 echo call_jq($contents, $filter);
