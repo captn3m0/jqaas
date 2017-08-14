@@ -15,7 +15,7 @@ function call_jq($contents, $filter)
     $filename = escapeshellarg($filename);
 
     
-    $cmd .= " --raw-output --join-output --compact-output $filename";
+    $cmd .= " --compact-output $filename";
 
     exec($cmd, $output, $return);
 
