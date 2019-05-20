@@ -2,6 +2,8 @@
 
 require('./jq.php');
 
+header("Access-Control-Allow-Origin: *");
+
 $contents = null;
 
 if(isset($_GET['url']))

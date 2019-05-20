@@ -1,6 +1,6 @@
 # jqaas
 
-[`jq`][jq] as a service.
+[`jq`][jq] as a service. Inspired by a tweet.
 
 ## usage
 
@@ -21,7 +21,7 @@ Content-Type: application/json
 ```sh
 curl "https://jqaas.captnemo.in/?url=https://jsonblob.com/api/042e7473-807d-11e7-9e0d-a95b02c92cd2" -H "JQ-Filter: .hello" -i
 
-HTTP/2 200 
+HTTP/2 200
 content-type: application/json
 
 [1,2,3]
@@ -30,6 +30,7 @@ content-type: application/json
 ### multiple-items
 
 Just like `jq`, this also supports multi-line inputs:
+
 ```
 curl --request POST \
   --url http://localhost:9998/ \
