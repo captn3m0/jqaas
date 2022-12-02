@@ -12,6 +12,4 @@ ADD docker-entrypoint.sh /
 
 COPY *.php jq /htdocs
 
-HEALTHCHECK CMD wget -q --no-cache --spider localhost
-
-ENTRYPOINT ["/docker-entrypoint.sh"]
+ENTRYPOINT ["/usr/sbin/httpd","-D","FOREGROUND"]
