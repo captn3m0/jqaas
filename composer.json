@@ -5,10 +5,10 @@
     "authors": [
         {
             "name": "Nemo",
-            "email": "me@captnemo.in"
+            "email": "github.contact@captnemo.in"
         }
     ],
     "require" : {
-        "php" : "^7.1"
+        "php" : "^8.1"
     }
 }
