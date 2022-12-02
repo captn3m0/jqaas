@@ -9,7 +9,7 @@ $contents = null;
 if(isset($_GET['url']))
 {
     $url = $_GET['url'];
-    if (filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED||FILTER_FLAG_HOST_REQUIRED) !== false)
+    if (filter_var($url, FILTER_VALIDATE_URL) !== false)
     {
         $contents = file_get_contents($url);
 
