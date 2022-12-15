@@ -3,7 +3,7 @@ LABEL maintainer="github.contact@captnemo.in"
 
 # Setup apache and php
 RUN apk add --no-cache --update \
-    php81-apache2 \
+    php81-apache2 php81-openssl \
     && mkdir /htdocs \
     && sed -i 's#^DocumentRoot ".*#DocumentRoot "/htdocs"#g' /etc/apache2/httpd.conf \
 	&& sed -i 's#Directory "/var/www/localhost/htdocs"#Directory "/htdocs"#g' /etc/apache2/httpd.conf
